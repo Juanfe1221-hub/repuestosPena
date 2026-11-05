@@ -1,0 +1,5 @@
+# Carpeta de fotos de repuestos: solo se sirven imágenes, nunca se ejecuta código.
+Options -Indexes -ExecCGI
+<FilesMatch "\.(php|phtml|php[0-9]|phar|cgi|pl|py|sh)$">
+  Require all denied
+</FilesMatch>

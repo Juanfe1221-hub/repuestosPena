@@ -1,0 +1,13 @@
+Options -Indexes
+# Cuando el dominio tenga certificado SSL (HTTPS), quita el "#" de las 3 líneas siguientes:
+# RewriteEngine On
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Fotos y archivos estáticos: caché de 30 días
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+</IfModule>

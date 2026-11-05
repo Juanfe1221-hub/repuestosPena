@@ -1,0 +1,2 @@
+# El esquema SQL no debe ser público.
+Require all denied

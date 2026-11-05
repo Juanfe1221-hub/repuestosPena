@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel de Administración · Autorepuestos y Accesorios Peña</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/app.css?v=5.0">
+  <style>
+/* ==========================================================================
+   AUTOREPUESTOS Y ACCESORIOS PEÑA · ESTILOS CLIENTE (BRAND BLUE) vs ADMIN ERP
+   ========================================================================== */
+
+:root {
+  /* Paleta Oficial inspirada en el Logo (Azul Cobalto Eléctrico + Navy Profundo + Cromo) */
+  --tp-accent: #0058c4;
+  --tp-accent-hover: #004499;
+  --tp-accent-light: #38bdf8;
+  --tp-accent-soft: #eff6ff;
+  --tp-dark: #071936;
+  --tp-dark-2: #0c2754;
+  --tp-bg: #f4f7fb;
+  --tp-card: #ffffff;
+  --tp-text: #091a34;
+  --tp-muted: #5b6b82;
+  --tp-border: #dce4f0;
+  --tp-wa: #16a34a;
+  --tp-wa-hover: #15803d;
+
+  /* Paleta Panel Admin (Enterprise Backoffice) */
+  --adm-primary: #1e293b;
+  --adm-accent: #0058c4;
+  --adm-sidebar: #0b1120;
+  --adm-sidebar-hover: #1e293b;
+  --adm-bg: #f1f5f9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--tp-text);
+  background-color: var(--tp-bg);
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.fw-extrabold {
+  font-weight: 800;
+}
+
+.text-accent {
+  color: var(--tp-accent) !important;
+}
+
+.bg-accent {
+  background-color: var(--tp-accent) !important;
+}
+
+.btn-accent {
+  background-color: var(--tp-accent);
+  border-color: var(--tp-accent);
+  color: #fff;
+}
+.btn-accent:hover, .btn-accent:focus {
+  background-color: var(--tp-accent-hover);
+  border-color: var(--tp-accent-hover);
+  color: #fff;
+}
+
+.btn-whatsapp {
+  background-color: var(--tp-wa);
+  border-color: var(--tp-wa);
+  color: #fff;
+}
+.btn-whatsapp:hover, .btn-whatsapp:focus {
+  background-color: var(--tp-wa-hover);
+  border-color: var(--tp-wa-hover);
+  color: #fff;
+}
+
+/* ==========================================================================
+   1. VISTA CLIENTE (TIENDA / CATÁLOGO PÚBLICO)
+   ========================================================================== */
+
+.tp-topbar {
+  background-color: #051126;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hover-white:hover {
+  color: #fff !important;
+}
+
+.tp-navbar {
+  background: #ffffff;
+  border-top: 3px solid var(--tp-accent);
+  border-bottom: 1px solid var(--tp-border);
+  box-shadow: 0 6px 20px -8px rgba(7, 25, 54, 0.08);
+  z-index: 1020;
+}
+
+.tp-nav-logo {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+.navbar-brand:hover .tp-nav-logo {
+  transform: scale(1.04);
+}
+
+.tp-brand-title {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--tp-dark);
+  letter-spacing: -0.3px;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.tp-brand-sub {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: var(--tp-accent);
+}
+
+.tp-nav-search .form-control,
+.tp-nav-search .input-group-text {
+  border-color: var(--tp-border);
+  border-radius: 99px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.tp-nav-search .form-control:focus {
+  box-shadow: none;
+  border-color: var(--tp-accent);
+  background-color: #fff !important;
+}
+.tp-nav-search .input-group:focus-within .input-group-text {
+  border-color: var(--tp-accent);
+  background-color: #fff !important;
+  color: var(--tp-accent) !important;
+}
+
+.tp-cart-btn {
+  background: var(--tp-dark);
+  color: #fff;
+  border: 1px solid var(--tp-dark);
+  transition: all 0.2s ease;
+}
+.tp-cart-btn:hover, .tp-cart-btn:focus {
+  background: var(--tp-accent);
+  border-color: var(--tp-accent);
+  color: #fff;
+}
+
+/* Hero Banner Sencillo, Automotriz y Centrado en el Logo */
+.tp-hero {
+  background: linear-gradient(125deg, #06152d 0%, #0a2552 55%, #004da8 100%);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 4px solid #0066e6;
+}
+
+/* Franja diagonal deportiva sutil (estilo automotriz limpio, no IA) */
+.tp-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -8%;
+  width: 48%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.01) 100%);
+  transform: skewX(-18deg);
+  pointer-events: none;
+}
+
+.tp-kicker {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  color: #7dd3fc;
+}
+
+.tp-hero-title {
+  font-size: clamp(1.75rem, 3.4vw, 2.65rem);
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  line-height: 1.15;
+}
+
+.tp-hero-sub {
+  font-size: 1rem;
+  max-width: 560px;
+  line-height: 1.5;
+}
+
+/* Placa blanca/cromo para destacar el Logo Oficial con 100% de contraste */
+.tp-logo-showcase {
+  background: radial-gradient(circle at 50% 45%, #ffffff 65%, #eef4fc 100%);
+  border: 3px solid rgba(56, 189, 248, 0.45);
+  border-radius: 26px;
+  padding: 20px 26px;
+  max-width: 340px;
+  box-shadow:
+    0 20px 40px -12px rgba(3, 10, 24, 0.65),
+    0 0 0 6px rgba(255, 255, 255, 0.07);
+  transition: transform 0.25s ease;
+}
+.tp-logo-showcase:hover {
+  transform: translateY(-3px);
+}
+.tp-hero-logo {
+  max-height: 210px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.tp-search-box {
+  max-width: 620px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.tp-quick-tag {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f8fafc;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 99px;
+  transition: all 0.15s ease;
+}
+.tp-quick-tag:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: var(--tp-dark);
+}
+
+/* Strip de Marcas de Vehículos */
+.tp-vehicle-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+  gap: 12px;
+}
+
+.tp-vehicle-card {
+  background: var(--tp-card);
+  border: 1.5px solid var(--tp-border);
+  border-radius: 14px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  min-height: 92px;
+}
+.tp-vehicle-card:hover {
+  border-color: var(--tp-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -6px rgba(0, 88, 196, 0.16);
+}
+.tp-vehicle-card.active {
+  border-color: var(--tp-accent);
+  background: var(--tp-accent-soft);
+  box-shadow: 0 0 0 3px rgba(0, 88, 196, 0.15);
+}
+.tp-vehicle-logo {
+  height: 36px;
+  width: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tp-vehicle-logo img {
+  max-height: 34px;
+  max-width: 68px;
+  object-fit: contain;
+}
+.tp-vehicle-fallback {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #eff6ff;
+  color: var(--tp-accent);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+.tp-vehicle-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--tp-dark);
+  line-height: 1.1;
+}
+
+/* Chips de Categorías */
+.tp-chips-scroll {
+  scrollbar-width: none;
+}
+.tp-chips-scroll::-webkit-scrollbar {
+  display: none;
+}
+.tp-chip {
+  border: 1px solid var(--tp-border);
+  background: #f8fafc;
+  color: var(--tp-text);
+  border-radius: 99px;
+  padding: 7px 16px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+}
+.tp-chip:hover {
+  border-color: var(--tp-accent);
+  color: var(--tp-accent);
+  background: #fff;
+}
+.tp-chip.on {
+  background: var(--tp-accent);
+  border-color: var(--tp-accent);
+  color: #fff;
+}
+
+/* Tarjetas de Producto (Catálogo Cliente) */
+.tp-product-card {
+  background: var(--tp-card);
+  border: 1px solid var(--tp-border);
+  border-radius: 16px;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  position: relative;
+}
+.tp-product-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 88, 196, 0.45);
+  box-shadow: 0 16px 32px -10px rgba(7, 25, 54, 0.14);
+}
+
+.tp-product-img-wrap {
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef3f9 100%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 16px;
+  border-bottom: 1px solid #eef3f9;
+}
+.tp-product-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.35s ease;
+}
+.tp-product-card:hover .tp-product-img-wrap img {
+  transform: scale(1.06);
+}
+.tp-product-placeholder {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid var(--tp-border);
+  box-shadow: 0 8px 16px -4px rgba(7, 25, 54, 0.06);
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  color: var(--tp-accent);
+  font-weight: 800;
+}
+
+.tp-cat-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(7, 25, 54, 0.85);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 99px;
+  letter-spacing: 0.3px;
+}
+
+.tp-brand-pill {
+  font-size: 0.73rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--tp-accent);
+}
+
+.tp-product-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--tp-dark);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tp-vehicle-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: #eff4fb;
+  color: #1e3a5f;
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
+.tp-price {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--tp-dark);
+  letter-spacing: -0.3px;
+}
+
+/* Modal de Detalle */
+.tp-modal-img-col {
+  background: linear-gradient(145deg, #f8fafc 0%, #e2eaf5 100%);
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+}
+.tp-modal-img-col img {
+  max-width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+}
+
+.tp-qty-box {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--tp-border);
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+}
+.tp-qty-box button {
+  border: 0;
+  background: transparent;
+  width: 38px;
+  height: 38px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--tp-dark);
+  transition: background 0.15s;
+}
+.tp-qty-box button:hover {
+  background: #f1f5f9;
+}
+.tp-qty-box span {
+  min-width: 40px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* Carrito Offcanvas */
+.tp-cart-offcanvas {
+  width: min(430px, 100vw) !important;
+}
+.tp-cart-header-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--tp-accent-soft);
+  color: var(--tp-accent);
+  display: grid;
+  place-items: center;
+  font-size: 1.15rem;
+}
+.tp-cart-item {
+  background: #fff;
+  border: 1px solid var(--tp-border);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+  transition: border-color 0.15s;
+}
+.tp-cart-item:hover {
+  border-color: #cbd5e1;
+}
+
+/* Botón Flotante WhatsApp */
+.tp-wa-float {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 1.75rem;
+  text-decoration: none;
+  z-index: 1030;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.tp-wa-float:hover {
+  color: #fff;
+  transform: scale(1.08);
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.45) !important;
+}
+
+/* Footer Cliente */
+.tp-footer {
+  background: #051126;
+  color: #94a3b8;
+  border-top: 3px solid var(--tp-accent);
+}
+.tp-footer-logo-box {
+  display: inline-block;
+  background: #ffffff;
+  padding: 10px 16px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+.tp-footer-logo-box img {
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Toast */
+.tp-toast {
+  background: var(--tp-dark);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 99px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 10px 25px rgba(7, 25, 54, 0.25);
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.25s ease;
+  pointer-events: none;
+}
+.tp-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   2. VISTA ADMINISTRACIÓN (ERP / BACKOFFICE DIFERENCIADO)
+   ========================================================================== */
+
+body.admin-body {
+  background-color: var(--adm-bg);
+}
+
+.adm-login-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0b1120 0%, #1e293b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.adm-login-card {
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.adm-shell {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--adm-bg);
+}
+
+/* Sidebar Admin */
+.adm-sidebar {
+  width: 265px;
+  background: var(--adm-sidebar);
+  color: #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.adm-sidebar-brand {
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.adm-brand-badge {
+  width: 64px;
+  height: 44px;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 3px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.adm-brand-badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.adm-nav {
+  padding: 16px 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.adm-nav-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #64748b;
+  padding: 10px 12px 4px;
+}
+
+.adm-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #94a3b8;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: left;
+  transition: all 0.18s ease;
+}
+.adm-nav-btn:hover {
+  background: var(--adm-sidebar-hover);
+  color: #fff;
+}
+.adm-nav-btn.on {
+  background: var(--adm-accent);
+  color: #fff;
+  box-shadow: 0 6px 16px -4px rgba(0, 88, 196, 0.45);
+}
+
+/* Main Admin Workspace */
+.adm-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.adm-topbar {
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 14px 28px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.adm-content {
+  padding: 28px;
+  flex: 1;
+}
+
+.adm-kpi-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.02);
+}
+
+.adm-kpi-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 1.45rem;
+}
+
+.adm-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+  overflow: hidden;
+}
+
+.adm-table th {
+  background: #f8fafc;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  padding: 13px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+.adm-table td {
+  padding: 13px 16px;
+  vertical-align: middle;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.9rem;
+}
+.adm-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.adm-thumb {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  font-weight: 700;
+  color: #475569;
+  flex-shrink: 0;
+}
+.adm-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.adm-veh-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+@media (max-width: 991.98px) {
+  .tp-logo-showcase {
+    max-width: 240px;
+    padding: 14px 18px;
+  }
+  .tp-hero-logo {
+    max-height: 145px;
+  }
+  .adm-shell {
+    flex-direction: column;
+  }
+  .adm-sidebar {
+    width: 100%;
+  }
+  .adm-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 10px 12px;
+  }
+  .adm-nav-label {
+    display: none;
+  }
+  .adm-nav-btn {
+    width: auto;
+    white-space: nowrap;
+  }
+  .adm-content {
+    padding: 18px 14px;
+  }
+  .adm-topbar {
+    padding: 12px 16px;
+  }
+}
+
+
+/* Blindaje de dimensiones de imágenes y logos */
+img.tp-nav-logo {
+  height: 54px !important;
+  max-height: 54px !important;
+  width: auto !important;
+  max-width: 90px !important;
+  object-fit: contain !important;
+}
+img.tp-hero-logo {
+  max-height: 230px !important;
+  width: auto !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+}
+.tp-logo-showcase {
+  max-width: 360px !important;
+  padding: 14px 18px !important;
+}
+
+  
+/* ===== v5 · Peña: marca, ubicación y carga de fotos ===== */
+.tp-brand-title { font-size: 0.86rem !important; letter-spacing: -0.1px !important; max-width: 230px; line-height: 1.12 !important; }
+@media (min-width: 1200px) { .tp-brand-title { max-width: 260px; } }
+
+.tp-map-card { border-radius: 20px; overflow: hidden; background: #fff; box-shadow: 0 10px 30px -12px rgba(7, 25, 54, 0.22); border: 1px solid #e3eaf4; }
+.tp-map-frame { width: 100%; height: 100%; min-height: 340px; border: 0; display: block; }
+.tp-loc-item { display: flex; gap: 12px; align-items: flex-start; }
+.tp-loc-ico { width: 40px; height: 40px; border-radius: 12px; background: rgba(0, 88, 196, 0.1); color: var(--tp-accent); display: grid; place-items: center; flex-shrink: 0; font-size: 1.1rem; }
+
+.adm-photo-box { display: flex; align-items: center; gap: 16px; padding: 14px; background: #f8fafc; border: 1px dashed #b9c6da; border-radius: 14px; }
+.adm-photo-prev { width: 104px; height: 104px; border-radius: 12px; background: #fff; border: 1px solid #e2e8f0; display: grid; place-items: center; overflow: hidden; flex-shrink: 0; color: #94a3b8; font-size: 2rem; }
+.adm-photo-prev img { width: 100%; height: 100%; object-fit: contain; }
+@media (max-width: 575px) { .adm-photo-box { flex-direction: column; text-align: center; } }
+
+
+/* ===== v6 · Vehículo Interactivo por Marca (Hotspots) + Carga de Imagen de Marca ===== */
+.tp-car-showcase-box {
+  background: radial-gradient(circle at 50% 45%, #ffffff 0%, #eef4fc 100%);
+  border: 1.5px solid var(--tp-border);
+  border-radius: 22px;
+  padding: 24px 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 14px 34px -12px rgba(7, 25, 54, 0.1);
+}
+
+.tp-car-stage {
+  position: relative;
+  max-width: 680px;
+  margin: 12px auto 6px;
+  user-select: none;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tp-car-stage img.tp-car-img {
+  width: 100%;
+  max-height: 330px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 18px 22px rgba(7, 25, 54, 0.22));
+  transition: transform 0.35s ease;
+}
+
+.tp-hotspot {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  margin-left: -18px;
+  margin-top: -18px;
+  border-radius: 50%;
+  background: var(--tp-accent);
+  color: #ffffff;
+  border: 3px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 15;
+  box-shadow: 0 6px 16px rgba(0, 88, 196, 0.55);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  font-size: 0.95rem;
+  padding: 0;
+}
+
+.tp-hotspot::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--tp-accent);
+  animation: tpPulseHotspot 1.8s infinite ease-out;
+  pointer-events: none;
+}
+
+.tp-hotspot:hover,
+.tp-hotspot.active {
+  transform: scale(1.22);
+  background: #e11d48;
+  box-shadow: 0 8px 20px rgba(225, 29, 72, 0.6);
+  z-index: 25;
+}
+
+.tp-hotspot.active::after {
+  border-color: #e11d48;
+}
+
+.tp-hotspot-tip {
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: var(--tp-dark);
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 20px rgba(7, 25, 54, 0.28);
+  pointer-events: none;
+}
+
+.tp-hotspot-tip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--tp-dark) transparent transparent transparent;
+}
+
+.tp-hotspot:hover .tp-hotspot-tip,
+.tp-hotspot.active .tp-hotspot-tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+@keyframes tpPulseHotspot {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(2.15); opacity: 0; }
+}
+
+.tp-vehicle-card .tp-vehicle-logo {
+  height: 48px;
+  width: 96px;
+}
+.tp-vehicle-card .tp-vehicle-logo img {
+  max-height: 46px;
+  max-width: 92px;
+  object-fit: contain;
+}
+
+  </style>
+</head>
+<body class="admin-body">
+  <div id="adminApp"></div>
+
+  <!-- Toast de notificaciones -->
+  <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3" style="z-index: 2000;">
+    <div id="toast" class="tp-toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/config.js?v=5.0"></script>
+  <script src="assets/js/store.js?v=5.0"></script>
+  <script src="assets/js/admin.js?v=5.0"></script>
+  <script>
+    // Utilidades globales para cuando se abre admin.html de forma directa
+    window.esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    window.COP = n => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n || 0);
+    window.nm = (l, id) => ((l || []).find(x => String(x.id) === String(id)) || {}).name || '';
+    let tt;
+    window.toast = t => {
+      const e = document.getElementById('toast');
+      if (!e) return;
+      e.innerHTML = '<i class="bi bi-check-circle-fill text-success me-2"></i>' + window.esc(t);
+      e.classList.add('show');
+      clearTimeout(tt);
+      tt = setTimeout(() => e.classList.remove('show'), 2300);
+    };
+    document.addEventListener('DOMContentLoaded', () => {
+      const el = document.getElementById('adminApp');
+      window.Admin.mount(el, () => window.Admin.mount(el));
+    });
+  </script>
+</body>
+</html>
